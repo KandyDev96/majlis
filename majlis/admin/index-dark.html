@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<title>مجلس — تطبيق المدير العام (الوضع الداكن)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Dark-mode canvas + overrides for hardcoded light values */
+  body { background: #08120f; }
+
+  /* DesignCanvas itself is a light grid by default — repaint it dark */
+  body, .dc-canvas { background: #08120f !important; }
+
+  /* Soft-tinted color stat: the hardcoded orange + quote need a dark fix */
+  .cstat.soft.orange { background: rgba(176, 104, 58, 0.16); }
+  .cstat.soft.orange .pill-ic, .cstat.soft.orange .v { color: #e3a06b; }
+
+  .quote { background: rgba(201, 161, 74, 0.12); color: var(--fg); }
+  .quote::before { color: var(--gold-300); }
+
+  /* Selected segmented option keeps brand fill in dark too */
+  .field .select { background: var(--surface); }
+
+  /* Light card backgrounds inside finance In/Out: token-based tints stay,
+     but we need to push their text contrast a notch */
+  .stats-row .card[style*="--success"] { color: var(--success); }
+
+  /* Chart bar inactive in dark: use a lifted surface so bars are visible */
+  .chart-bar { background: rgba(255,255,255,0.08); }
+  .chart-bar.active { background: var(--brand); }
+
+  /* Inset-list dividers use surface-2 in dark */
+  .inset-row + .inset-row::before { background: var(--border); }
+
+  /* Soft "neutral" segmented backdrop */
+  .row[style*="surface-2"] { background: var(--surface-2) !important; }
+
+  /* iOS device frame: tweak the inner page color (Phone defaults to light) */
+  /* We pass dark={true} via JSX so this is mostly handled by IOSDevice. */
+
+  /* Pattern overlay on heroes: in dark, don't invert (pattern is already light) */
+  .hero::before, .profile-hero::before { filter: none !important; opacity: 0.05 !important; }
+
+  /* DesignCanvas labels/title: lighten so they read on dark grid */
+  .dc-card { background: transparent; }
+</style>
+</head>
+<body>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="../ios-frame.jsx"></script>
+<script type="text/babel" src="../design-canvas.jsx"></script>
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="dashboard-and-sheikhs.jsx"></script>
+<script type="text/babel" src="students-and-modals.jsx"></script>
+<script type="text/babel" src="finance-and-profile.jsx"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+// Dark phone — passes dark=true to IOSDevice and forces the inner scr surface
+// to dark-mode tokens (which are already wired into colors_and_type.css).
+const DarkPhone = ({ children }) => (
+  <IOSDevice width={390} height={844} dark={true} title={undefined}>
+    <div data-theme="dark" style={{ height: "100%", background: "var(--bg)" }}>
+      {children}
+    </div>
+  </IOSDevice>
+);
+
+const App = () => (
+  <DesignCanvas
+    title="مجلس · تطبيق المدير العام — الوضع الداكن"
+    subtitle="Dark mode — same 22 screens, same olive/gold system, applied against deep-green dark surfaces."
+  >
+    <DCSection id="dashboard" title="٣.١ لوحة الإدارة · Dashboard" subtitle="مركز قيادة النظام — إحصاء، حضور أسبوعي، جلسات اليوم، المشايخ النشطون، ومُودال إضافة جلسة.">
+      <DCArtboard id="01-dashboard" label="01 · لوحة الإدارة" width={390} height={844}><DarkPhone><Dashboard/></DarkPhone></DCArtboard>
+      <DCArtboard id="02-add-session" label="02 · مُودال إضافة جلسة" width={390} height={844}><DarkPhone><AddSession/></DarkPhone></DCArtboard>
+    </DCSection>
+
+    <DCSection id="sheikhs" title="٣.٢ — ٣.٣ المشايخ · Sheikhs" subtitle="القائمة، صفحة التفاصيل، والأقسام السبعة لإدارة ملف الشيخ.">
+      <DCArtboard id="03-sheikhs-list" label="03 · قائمة المشايخ" width={390} height={844}><DarkPhone><SheikhsList/></DarkPhone></DCArtboard>
+      <DCArtboard id="04-sheikh-detail" label="04 · تفاصيل الشيخ" width={390} height={844}><DarkPhone><SheikhDetail/></DarkPhone></DCArtboard>
+      <DCArtboard id="05-sheikh-data" label="05 · بيانات الشيخ" width={390} height={844}><DarkPhone><SheikhData/></DarkPhone></DCArtboard>
+      <DCArtboard id="06-sheikh-materials" label="06 · المواد" width={390} height={844}><DarkPhone><SheikhMaterials/></DarkPhone></DCArtboard>
+      <DCArtboard id="07-sheikh-schedule" label="07 · مواعيد الدروس" width={390} height={844}><DarkPhone><SheikhSchedule/></DarkPhone></DCArtboard>
+      <DCArtboard id="08-sheikh-lessons" label="08 · الدروس المنفذة" width={390} height={844}><DarkPhone><SheikhLessons/></DarkPhone></DCArtboard>
+      <DCArtboard id="09-sheikh-attendance" label="09 · سجل الحضور" width={390} height={844}><DarkPhone><SheikhAttendance/></DarkPhone></DCArtboard>
+      <DCArtboard id="10-sheikh-expenses" label="10 · المصاريف" width={390} height={844}><DarkPhone><SheikhExpenses/></DarkPhone></DCArtboard>
+      <DCArtboard id="11-sheikh-custody" label="11 · العهد" width={390} height={844}><DarkPhone><SheikhCustody/></DarkPhone></DCArtboard>
+    </DCSection>
+
+    <DCSection id="students" title="٣.٤ — ٣.٥ الطلاب · Students" subtitle="القائمة، صفحة التفاصيل، والأقسام السبعة لإدارة ملف الطالب.">
+      <DCArtboard id="12-students-list" label="12 · قائمة الطلاب" width={390} height={844}><DarkPhone><StudentsList/></DarkPhone></DCArtboard>
+      <DCArtboard id="13-student-detail" label="13 · تفاصيل الطالب" width={390} height={844}><DarkPhone><StudentDetail/></DarkPhone></DCArtboard>
+      <DCArtboard id="14-student-data" label="14 · بيانات الطالب" width={390} height={844}><DarkPhone><StudentData/></DarkPhone></DCArtboard>
+      <DCArtboard id="15-student-attendance" label="15 · سجل الحضور" width={390} height={844}><DarkPhone><StudentAttendance/></DarkPhone></DCArtboard>
+      <DCArtboard id="16-student-fees" label="16 · المصاريف" width={390} height={844}><DarkPhone><StudentFees/></DarkPhone></DCArtboard>
+      <DCArtboard id="17-student-custody" label="17 · العهد" width={390} height={844}><DarkPhone><StudentCustody/></DarkPhone></DCArtboard>
+      <DCArtboard id="18-student-activities" label="18 · النشاطات" width={390} height={844}><DarkPhone><StudentActivities/></DarkPhone></DCArtboard>
+      <DCArtboard id="19-student-files" label="19 · الملفات المرفوعة" width={390} height={844}><DarkPhone><StudentFiles/></DarkPhone></DCArtboard>
+      <DCArtboard id="20-student-evaluations" label="20 · التقييمات" width={390} height={844}><DarkPhone><StudentEvaluations/></DarkPhone></DCArtboard>
+    </DCSection>
+
+    <DCSection id="finance-profile" title="٣.٦ — ٣.٧ المالية وملفي · Finance & Profile" subtitle="ملخص الحركة المالية والملف الشخصي للمدير.">
+      <DCArtboard id="21-finance" label="21 · القسم المالي" width={390} height={844}><DarkPhone><Finance/></DarkPhone></DCArtboard>
+      <DCArtboard id="22-profile" label="22 · ملفي (المدير)" width={390} height={844}><DarkPhone><DirectorProfile/></DarkPhone></DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>

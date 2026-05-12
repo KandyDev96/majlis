@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>مجلس — تطبيق المدير العام</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Canvas-level helpers */
+  body { background: #f0eee9; }
+</style>
+</head>
+<body>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="../ios-frame.jsx"></script>
+<script type="text/babel" src="../design-canvas.jsx"></script>
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="dashboard-and-sheikhs.jsx"></script>
+<script type="text/babel" src="students-and-modals.jsx"></script>
+<script type="text/babel" src="finance-and-profile.jsx"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+// NOTE: DCSection only walks DIRECT DCArtboard children for focus/reorder,
+// so each frame is written inline below rather than via a wrapper component.
+
+const App = () => (
+  <DesignCanvas
+    title="مجلس · تطبيق المدير العام"
+    subtitle="Director's app — full screen set across 7 sections, RTL, Tajawal, olive/gold system."
+  >
+    <DCSection id="dashboard" title="٣.١ لوحة الإدارة · Dashboard" subtitle="مركز قيادة النظام — إحصاء، حضور أسبوعي، جلسات اليوم، المشايخ النشطون، ومُودال إضافة جلسة.">
+      <DCArtboard id="01-dashboard" label="01 · لوحة الإدارة" width={390} height={844}><Phone><Dashboard/></Phone></DCArtboard>
+      <DCArtboard id="02-add-session" label="02 · مُودال إضافة جلسة" width={390} height={844}><Phone><AddSession/></Phone></DCArtboard>
+    </DCSection>
+
+    <DCSection id="sheikhs" title="٣.٢ — ٣.٣ المشايخ · Sheikhs" subtitle="القائمة، صفحة التفاصيل، والأقسام السبعة لإدارة ملف الشيخ.">
+      <DCArtboard id="03-sheikhs-list" label="03 · قائمة المشايخ" width={390} height={844}><Phone><SheikhsList/></Phone></DCArtboard>
+      <DCArtboard id="04-sheikh-detail" label="04 · تفاصيل الشيخ" width={390} height={844}><Phone><SheikhDetail/></Phone></DCArtboard>
+      <DCArtboard id="05-sheikh-data" label="05 · بيانات الشيخ" width={390} height={844}><Phone><SheikhData/></Phone></DCArtboard>
+      <DCArtboard id="06-sheikh-materials" label="06 · المواد" width={390} height={844}><Phone><SheikhMaterials/></Phone></DCArtboard>
+      <DCArtboard id="07-sheikh-schedule" label="07 · مواعيد الدروس" width={390} height={844}><Phone><SheikhSchedule/></Phone></DCArtboard>
+      <DCArtboard id="08-sheikh-lessons" label="08 · الدروس المنفذة" width={390} height={844}><Phone><SheikhLessons/></Phone></DCArtboard>
+      <DCArtboard id="09-sheikh-attendance" label="09 · سجل الحضور" width={390} height={844}><Phone><SheikhAttendance/></Phone></DCArtboard>
+      <DCArtboard id="10-sheikh-expenses" label="10 · المصاريف" width={390} height={844}><Phone><SheikhExpenses/></Phone></DCArtboard>
+      <DCArtboard id="11-sheikh-custody" label="11 · العهد" width={390} height={844}><Phone><SheikhCustody/></Phone></DCArtboard>
+    </DCSection>
+
+    <DCSection id="students" title="٣.٤ — ٣.٥ الطلاب · Students" subtitle="القائمة، صفحة التفاصيل، والأقسام السبعة لإدارة ملف الطالب.">
+      <DCArtboard id="12-students-list" label="12 · قائمة الطلاب" width={390} height={844}><Phone><StudentsList/></Phone></DCArtboard>
+      <DCArtboard id="13-student-detail" label="13 · تفاصيل الطالب" width={390} height={844}><Phone><StudentDetail/></Phone></DCArtboard>
+      <DCArtboard id="14-student-data" label="14 · بيانات الطالب" width={390} height={844}><Phone><StudentData/></Phone></DCArtboard>
+      <DCArtboard id="15-student-attendance" label="15 · سجل الحضور" width={390} height={844}><Phone><StudentAttendance/></Phone></DCArtboard>
+      <DCArtboard id="16-student-fees" label="16 · المصاريف" width={390} height={844}><Phone><StudentFees/></Phone></DCArtboard>
+      <DCArtboard id="17-student-custody" label="17 · العهد" width={390} height={844}><Phone><StudentCustody/></Phone></DCArtboard>
+      <DCArtboard id="18-student-activities" label="18 · النشاطات" width={390} height={844}><Phone><StudentActivities/></Phone></DCArtboard>
+      <DCArtboard id="19-student-files" label="19 · الملفات المرفوعة" width={390} height={844}><Phone><StudentFiles/></Phone></DCArtboard>
+      <DCArtboard id="20-student-evaluations" label="20 · التقييمات" width={390} height={844}><Phone><StudentEvaluations/></Phone></DCArtboard>
+    </DCSection>
+
+    <DCSection id="finance-profile" title="٣.٦ — ٣.٧ المالية وملفي · Finance & Profile" subtitle="ملخص الحركة المالية والملف الشخصي للمدير.">
+      <DCArtboard id="21-finance" label="21 · القسم المالي" width={390} height={844}><Phone><Finance/></Phone></DCArtboard>
+      <DCArtboard id="22-profile" label="22 · ملفي (المدير)" width={390} height={844}><Phone><DirectorProfile/></Phone></DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
